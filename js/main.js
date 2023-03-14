@@ -63,28 +63,22 @@ const makeSequence = () => {
 const generateId = makeSequence();
 const generateCommentId = makeSequence();
 
-const createComment = () => {
-  generateCommentId();
-  return {
-    id: generateCommentId(),
-    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-    message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
-    name: NAMES[getRandomInteger(1, 6)],
-  };
-};
+const createComment = () => ({
+  id: generateCommentId(),
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+  message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
+  name: NAMES[getRandomInteger(1, 6)]
+});
 
 const createComments = () => Array.from({ length: getRandomInteger(1, COMMENTS_MAX) }, createComment);
 
-const createPhoto = () => {
-  generateId();
-  return {
-    id: generateId(),
-    url: `photos/${generateUrl()}.jpg`,
-    description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
-    likes: getRandomInteger(15, 200),
-    comments: createComments()
-  };
-};
+const createPhoto = () => ({
+  id: generateId(),
+  url: `photos/${generateUrl()}.jpg`,
+  description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
+  likes: getRandomInteger(15, 200),
+  comments: createComments()
+});
 
 const createPhotos = () => Array.from({ length: ITEMS }, createPhoto);
 createPhotos();
