@@ -86,5 +86,5 @@ const createPhoto = () => {
   };
 };
 
-// eslint-disable-next-line
 const createPhotos = () => Array.from({ length: ITEMS }, createPhoto);
+createPhotos();
