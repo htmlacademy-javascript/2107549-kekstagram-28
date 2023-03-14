@@ -56,32 +56,35 @@ const getUniqueRandomInteger = (min, max) => {
 };
 
 const generateUrl = getUniqueRandomInteger(1, ITEMS);
-let generateId = 0;
-let generateCommentId = 0;
+const makeSequence = () => {
+  let index = 0;
+  return () => index++;
+};
+const generateId = makeSequence();
+const generateCommentId = makeSequence();
 
 const createComment = () => {
-  const generateAvatarId = getRandomInteger(1, 6);
-  const generateAvatar = `img/avatar-${generateAvatarId}.svg`;
-  const generateName = NAMES[generateAvatarId];
-  generateCommentId++;
+  generateCommentId();
   return {
-    id: generateCommentId,
-    avatar: generateAvatar,
+    id: generateCommentId(),
+    avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
     message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
-    name: generateName,
+    name: NAMES[getRandomInteger(1, 6)],
   };
 };
 
-const createObject = () => {
-  generateId++;
+const createComments = () => Array.from({ length: getRandomInteger(1, COMMENTS_MAX) }, createComment);
+
+const createPhoto = () => {
+  generateId();
   return {
-    id: generateId,
+    id: generateId(),
     url: `photos/${generateUrl()}.jpg`,
     description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
     likes: getRandomInteger(15, 200),
-    comments: Array.from({ length: getRandomInteger(1, COMMENTS_MAX) }, createComment),
+    comments: createComments()
   };
 };
 
 // eslint-disable-next-line
-const objects = Array.from({ length: ITEMS }, createObject);
+const createPhotos = () => Array.from({ length: ITEMS }, createPhoto);
