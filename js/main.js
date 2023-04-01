@@ -70,14 +70,12 @@ const createComment = () => ({
   name: NAMES[getRandomInteger(1, 6)]
 });
 
-const createComments = () => Array.from({ length: getRandomInteger(1, COMMENTS_MAX) }, createComment);
-
 const createPhoto = () => ({
   id: generateId(),
   url: `photos/${generateUrl()}.jpg`,
   description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
   likes: getRandomInteger(15, 200),
-  comments: createComments()
+  comments: Array.from({ length: getRandomInteger(1, COMMENTS_MAX) }, createComment)
 });
 
 const createPhotos = () => Array.from({ length: ITEMS }, createPhoto);
