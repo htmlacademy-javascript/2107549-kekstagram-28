@@ -42,7 +42,7 @@ const DESCRIPTIONS = [
 
 const generateUrl = getUniqueRandomInteger(1, ITEMS);
 const makeSequence = () => {
-  let index = 0;
+  let index = 1;
   return () => index++;
 };
 const generateId = makeSequence();
