@@ -1,6 +1,10 @@
 const bigPicPreview = document.querySelector('.big-picture__preview');
 const commentsContainer = bigPicPreview.querySelector('.social__comments');
 const commentTemplate = commentsContainer.querySelector('.social__comment');
+const bigPictureImage = bigPicPreview.querySelector('.big-picture__img img');
+const likesCount = bigPicPreview.querySelector('.likes-count');
+const commentsCount = bigPicPreview.querySelector('.comments-count');
+const socialCaption = bigPicPreview.querySelector('.social__caption');
 
 const renderComment = (({ avatar, name, message }) => {
   const comment = commentTemplate.cloneNode(true);
@@ -11,24 +15,19 @@ const renderComment = (({ avatar, name, message }) => {
   return comment;
 });
 
-const createCommentsList = (comments) => {
-  const commentsListFragment = document.createDocumentFragment();
-
-  comments.forEach((comment) => {
-    commentsListFragment.append(renderComment(comment));
-  });
-  commentsContainer.append(commentsListFragment);
+const createComments = (comments) => {
+  commentsContainer.append(...comments.map(renderComment));
 };
 
 const renderBigPicture = ({ url, description, likes, comments }) => {
-  bigPicPreview.querySelector('.big-picture__img img').src = url;
-  bigPicPreview.querySelector('.big-picture__img img').alt = description;
-  bigPicPreview.querySelector('.likes-count').textContent = likes;
-  bigPicPreview.querySelector('.comments-count').textContent = comments.length;
-  bigPicPreview.querySelector('.social__caption').textContent = description;
+  bigPictureImage.src = url;
+  bigPictureImage.alt = description;
+  likesCount.textContent = likes;
+  commentsCount.textContent = comments.length;
+  socialCaption.textContent = description;
 
   commentsContainer.innerHTML = '';
-  createCommentsList(comments);
+  createComments(comments);
 };
 
-export { renderBigPicture };
+export { renderBigPicture, bigPictureImage, likesCount, socialCaption };

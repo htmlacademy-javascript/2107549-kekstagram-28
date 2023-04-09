@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
+import { bigPictureImage, likesCount, socialCaption } from './big-pic.js';
 import { renderMiniatures, photosContainer } from './miniature.js';
-import { renderBigPicture } from './big-pic.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
@@ -14,12 +14,16 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const openBigPhoto = (element) => {
-  bigPicture.classList.remove('hidden');
+const openBigPhoto = (url, description, likes, comments) => {
+  bigPictureImage.src = url;
+  bigPictureImage.alt = description;
+  likesCount.textContent = likes;
+  socialCaption.textContent = description;
+
   document.body.classList.add('modal-open');
   commentsCount.classList.add('hidden');
   commentsLoaderButton.classList.add('hidden');
-  renderBigPicture(element);
+  bigPicture.classList.remove('hidden');
 
   document.addEventListener('keydown', onDocumentKeydown);
 };
@@ -34,10 +38,12 @@ photosContainer.addEventListener('click', (evt) => {
 });
 
 const closeBigPhoto = () => {
-  bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  bigPicture.classList.add('hidden');
 
   document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 bigPictureClose.addEventListener('click', closeBigPhoto);
+
+export { openBigPhoto };
