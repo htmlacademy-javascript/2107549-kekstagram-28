@@ -12,13 +12,14 @@ const renderMiniature = (({ url, description, likes, comments }) => {
   miniature.querySelector('.picture__likes').textContent = likes;
   miniature.querySelector('.picture__comments').textContent = comments.length;
 
-  miniature.addEventListener('click', () => openBigPhoto(url, likes, comments, description));
+  miniature.addEventListener('click', () => openBigPhoto(url, description, likes, comments));
 
   return miniature;
 });
 
 const createMiniaturesList = (miniatures) => {
-  photosContainer.append(...miniatures.map((miniature) => renderMiniature(miniature)));
+  photosContainer.querySelectorAll('.picture').forEach((miniature) => miniature.remove());
+  photosContainer.append(...miniatures.map(renderMiniature));
 };
 
 export { createMiniaturesList };
