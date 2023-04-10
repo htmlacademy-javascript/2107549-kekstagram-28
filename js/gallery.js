@@ -10,7 +10,7 @@ const socialCaption = document.querySelector('.social__caption');
 const showedCommentsCountElement = bigPicture.querySelector('.social__showed-comment-count');
 const commentsCount = bigPicture.querySelector('.social__comment-count .comments-count');
 const commentsContainer = bigPicture.querySelector('.social__comments');
-const commentTemplateElement = document.querySelector('template#social__comment').content.querySelector('.social__comment');
+const commentTemplateElement = document.querySelector('.social__comment');
 
 const closeBigPhoto = () => {
   document.body.classList.remove('modal-open');
