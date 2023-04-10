@@ -1,3 +1,5 @@
+// Вспомогательные функции
+
 const getRandomInteger = (min, max) => Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + min;
 
 const getUniqueRandomInteger = (min, max) => {
@@ -16,5 +18,6 @@ const getUniqueRandomInteger = (min, max) => {
 };
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
+const isAcceptKey = (evt) => evt.key === 'Enter' || evt.key === 'Space';
 
-export { getRandomInteger, getUniqueRandomInteger, isEscapeKey };
+export { getRandomInteger, getUniqueRandomInteger, isEscapeKey, isAcceptKey };
