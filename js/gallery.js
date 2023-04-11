@@ -57,11 +57,19 @@ const makeSequence = (step) => {
 
 const renderMoreComments = (commentsLoaderElement, stepSequence, comments) => {
   const [prev, index] = stepSequence();
+  const step = index - prev;
+  let tempPrev = prev;
+
   renderComments(comments.slice(prev, index));
-  showedCommentsCountElement.textContent = index;
-  if (comments.length <= index) {
+
+  if (index >= comments.length) {
+    showedCommentsCountElement.textContent = comments.length;
     commentsLoaderElement.classList.add('hidden');
+
+    return;
   }
+
+  showedCommentsCountElement.textContent = tempPrev += step;
 };
 
 const makeCommentsLoaderElement = () => {
