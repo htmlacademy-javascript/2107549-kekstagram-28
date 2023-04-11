@@ -1,4 +1,5 @@
-import { createPhotos } from './data.js';
+// Отрисовка миниатюр
+
 import { openBigPhoto } from './gallery.js';
 
 const photosContainer = document.querySelector('.pictures');
@@ -17,10 +18,8 @@ const renderMiniature = (({ url, description, likes, comments }) => {
 });
 
 const createMiniaturesList = (miniatures) => {
-  photosContainer.append(...miniatures.map((miniature) => renderMiniature(miniature)));
+  photosContainer.querySelectorAll('.picture').forEach((miniature) => miniature.remove());
+  photosContainer.append(...miniatures.map(renderMiniature));
 };
 
-const renderMiniatures = createPhotos();
-createMiniaturesList(renderMiniatures);
-
-export { renderMiniatures, photosContainer };
+export { createMiniaturesList };

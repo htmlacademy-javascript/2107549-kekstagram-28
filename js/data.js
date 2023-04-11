@@ -1,7 +1,10 @@
+// Генерация данных
+
 import { getRandomInteger, getUniqueRandomInteger } from './util.js';
 
 const ITEMS = 25;
-const COMMENTS_MAX = 5;
+const COMMENTS_COUNT = { MIN: 0, MAX: 10 };
+const LIKES_COUNT = { MIN: 15, MAX: 200 };
 
 const NAMES = [
   'Рахмет',
@@ -59,8 +62,8 @@ const createPhoto = () => ({
   id: generateId(),
   url: `photos/${generateUrl()}.jpg`,
   description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
-  likes: getRandomInteger(15, 200),
-  comments: Array.from({ length: getRandomInteger(1, COMMENTS_MAX) }, createComment)
+  likes: getRandomInteger(LIKES_COUNT.MIN, LIKES_COUNT.MAX),
+  comments: Array.from({ length: getRandomInteger(COMMENTS_COUNT.MIN, COMMENTS_COUNT.MAX) }, createComment)
 });
 
 const createPhotos = () => Array.from({ length: ITEMS }, createPhoto);
