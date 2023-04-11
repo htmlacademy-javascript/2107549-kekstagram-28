@@ -58,7 +58,6 @@ const makeSequence = (step) => {
 const renderMoreComments = (commentsLoaderElement, stepSequence, comments) => {
   const [prev, index] = stepSequence();
   const step = index - prev;
-  let tempPrev = prev;
 
   renderComments(comments.slice(prev, index));
 
@@ -69,7 +68,7 @@ const renderMoreComments = (commentsLoaderElement, stepSequence, comments) => {
     return;
   }
 
-  showedCommentsCountElement.textContent = tempPrev += step;
+  showedCommentsCountElement.textContent = prev + step;
 };
 
 const makeCommentsLoaderElement = () => {
