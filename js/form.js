@@ -26,7 +26,7 @@ const hasUniqueTags = (tags) => {
 const validateTags = (value) => {
   const tags = value
     .trim()
-    .split(' ')
+    .toLowerCase().split(/\s+/)
     .filter((tag) => tag.trim().length);
   return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
 };
@@ -39,18 +39,29 @@ pristine.addValidator(
 
 const openModal = () => {
   uploadPicture.classList.remove('hidden');
-  document.querySelector('body').classList.add('modal-open');
+  document.body.classList.add('modal-open');
+
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const closeModal = () => {
   uploadPicture.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
   pristine.reset();
+
+  document.removeEventListener('keydown', onDocumentKeydown);
 };
 
 uploadControl.addEventListener('change', () => {
   openModal();
 });
+
+function onDocumentKeydown(evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    uploadFormClose.click();
+  }
+}
 
 const onCloseButtonClick = closeModal;
 const onCloseButtonKeydown = (evt) => {
