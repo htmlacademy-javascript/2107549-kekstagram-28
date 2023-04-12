@@ -1,3 +1,5 @@
+import './form.js';
+
 import { createPhotos } from './data.js';
 import { createMiniaturesList } from './miniature.js';
 
