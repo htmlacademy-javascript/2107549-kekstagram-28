@@ -1,3 +1,5 @@
+import { resetScale } from './scale.js';
+import { resetEffects } from './effects.js';
 import { isEscapeKey } from './util.js';
 
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -26,7 +28,8 @@ const hasUniqueTags = (tags) => {
 const validateTags = (value) => {
   const tags = value
     .trim()
-    .toLowerCase().split(/\s+/)
+    .toLowerCase()
+    .split(/\s+/)
     .filter((tag) => tag.trim().length);
   return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
 };
@@ -47,6 +50,8 @@ const openModal = () => {
 const closeModal = () => {
   uploadPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  resetScale();
+  resetEffects();
   pristine.reset();
 
   document.removeEventListener('keydown', onDocumentKeydown);
