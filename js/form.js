@@ -25,6 +25,7 @@ const closeModal = () => {
 const onCloseButtonClick = closeModal;
 const onCloseButtonKeydown = (evt) => {
   if (isEscapeKey(evt)) {
+    evt.preventDefault();
     closeModal();
   }
 };
