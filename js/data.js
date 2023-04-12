@@ -1,5 +1,3 @@
-// Генерация данных
-
 import { getRandomInteger, getUniqueRandomInteger } from './util.js';
 
 const ITEMS = 25;
