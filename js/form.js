@@ -16,20 +16,6 @@ const pristine = new Pristine(formImgUpload, {
   errorTextClass: 'img-upload__field-wrapper__error',
 });
 
-const closeModal = () => {
-  uploadPicture.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
-  pristine.reset();
-};
-
-const onCloseButtonClick = closeModal;
-const onCloseButtonKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeModal();
-  }
-};
-
 const isValidTag = (tag) => VALID_SYMBOLS.test(tag);
 const hasValidCount = (tags) => tags.length <= HASHTAG_AMOUNT;
 const hasUniqueTags = (tags) => {
@@ -56,9 +42,23 @@ const openModal = () => {
   document.querySelector('body').classList.add('modal-open');
 };
 
+const closeModal = () => {
+  uploadPicture.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+  pristine.reset();
+};
+
 uploadControl.addEventListener('change', () => {
   openModal();
 });
+
+const onCloseButtonClick = closeModal;
+const onCloseButtonKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeModal();
+  }
+};
 
 uploadFormClose.addEventListener('click', onCloseButtonClick);
 uploadFormClose.addEventListener('keydown', onCloseButtonKeydown);
