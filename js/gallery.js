@@ -1,5 +1,3 @@
-// Отрисовка и загрузка комментариев, открытие и закрытие полноразмерных изображений
-
 import { isEscapeKey, isAcceptKey } from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');

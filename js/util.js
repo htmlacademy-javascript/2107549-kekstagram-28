@@ -1,5 +1,3 @@
-// Вспомогательные функции
-
 const getRandomInteger = (min, max) => Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + min;
 
 const getUniqueRandomInteger = (min, max) => {

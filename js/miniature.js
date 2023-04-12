@@ -1,5 +1,3 @@
-// Отрисовка миниатюр
-
 import { openBigPhoto } from './gallery.js';
 
 const photosContainer = document.querySelector('.pictures');
