@@ -1,6 +1,15 @@
-const getRandomInteger = (min, max) => Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + min;
+export const makeSequence = (step) => {
+  let index = 0;
+  return () => {
+    const prev = index;
+    index += step;
+    return [prev, index];
+  };
+};
 
-const getUniqueRandomInteger = (min, max) => {
+export const getRandomInteger = (min, max) => Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + min;
+
+export const getUniqueRandomInteger = (min, max) => {
   const previousValues = [];
   return function () {
     let currentValue = getRandomInteger(min, max);
@@ -15,7 +24,5 @@ const getUniqueRandomInteger = (min, max) => {
   };
 };
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
-const isAcceptKey = (evt) => evt.key === 'Enter' || evt.key === 'Space';
-
-export { getRandomInteger, getUniqueRandomInteger, isEscapeKey, isAcceptKey };
+export const isEscapeKey = (evt) => evt.key === 'Escape';
+export const isAcceptKey = (evt) => evt.key === 'Enter' || evt.key === 'Space';

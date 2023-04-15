@@ -1,7 +1,5 @@
-import './form.js';
+import { addFormAction } from './form.js';
+import { getPicturesData } from './get-pictures-data.js';
 
-import { createPhotos } from './data.js';
-import { createMiniaturesList } from './miniature.js';
-
-const renderMiniatures = createPhotos();
-createMiniaturesList(renderMiniatures);
+getPicturesData();
+addFormAction();
