@@ -1,7 +1,4 @@
 import { openBigPhoto } from './gallery.js';
-import { getData } from './api.js';
-import { getFail } from './get-msg.js';
-import { URLS } from './constants.js';
 
 const photosContainer = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -30,8 +27,4 @@ const renderMiniatures = (data) => {
   data.forEach((item) => photosContainer.append(createMiniature(item)));
 };
 
-const onGetSuccess = (data) => renderMiniatures(data);
-
-const getPicturesData = () => getData(URLS.get, onGetSuccess, getFail);
-
-export { getPicturesData };
+export { renderMiniatures };

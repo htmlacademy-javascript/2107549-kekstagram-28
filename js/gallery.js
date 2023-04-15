@@ -1,4 +1,4 @@
-import { isEscapeKey, isAcceptKey } from './util.js';
+import { isEscapeKey, isAcceptKey, makeSequence } from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
@@ -44,13 +44,15 @@ const createComment = ({ name, avatar, message }) => {
 
 const renderComments = (comments) => commentsContainer.append(...comments.map(createComment));
 
-const makeSequence = (step) => {
-  let index = 0;
-  return () => {
-    const prev = index;
-    index += step;
-    return [prev, index];
-  };
+const clearComments = () => (commentsContainer.innerHTML = '');
+
+const makeCommentsLoaderElement = () => {
+  const commentsLoaderElement = bigPicture.querySelector('.comments-loader');
+  const newCommentsLoaderElement = commentsLoaderElement.cloneNode(true);
+  newCommentsLoaderElement.classList.remove('hidden');
+  commentsLoaderElement.replaceWith(newCommentsLoaderElement);
+
+  return newCommentsLoaderElement;
 };
 
 const renderMoreComments = (commentsLoaderElement, stepSequence, comments) => {
@@ -68,15 +70,6 @@ const renderMoreComments = (commentsLoaderElement, stepSequence, comments) => {
   showedCommentsCountElement.textContent = index;
 };
 
-const makeCommentsLoaderElement = () => {
-  const commentsLoaderElement = bigPicture.querySelector('.comments-loader');
-  const newCommentsLoaderElement = commentsLoaderElement.cloneNode(true);
-  newCommentsLoaderElement.classList.remove('hidden');
-  commentsLoaderElement.replaceWith(newCommentsLoaderElement);
-
-  return newCommentsLoaderElement;
-};
-
 const initCommentsLoader = (comments) => {
   const commentsLoaderElement = makeCommentsLoaderElement();
   commentsCount.textContent = comments.length;
@@ -84,8 +77,6 @@ const initCommentsLoader = (comments) => {
   renderMoreComments(commentsLoaderElement, stepSequence, comments);
   commentsLoaderElement.addEventListener('click', () => renderMoreComments(commentsLoaderElement, stepSequence, comments));
 };
-
-const clearComments = () => (commentsContainer.innerHTML = '');
 
 const openBigPhoto = ({ url, description, likes, comments }) => {
   bigPictureImage.src = url;
