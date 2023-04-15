@@ -1,8 +1,7 @@
 import { openBigPhoto } from './gallery.js';
 import { getData } from './api.js';
 import { getFail } from './get-msg.js';
-
-const GET_URL = 'https://28.javascript.pages.academy/kekstagram/data';
+import { URLS } from './constants.js';
 
 const photosContainer = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -33,6 +32,6 @@ const renderMiniatures = (data) => {
 
 const onGetSuccess = (data) => renderMiniatures(data);
 
-const getPicturesData = () => getData(GET_URL, onGetSuccess, getFail);
+const getPicturesData = () => getData(URLS.get, onGetSuccess, getFail);
 
 export { getPicturesData };

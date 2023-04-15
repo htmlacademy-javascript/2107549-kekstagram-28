@@ -3,11 +3,11 @@ import { resetEffects } from './effects.js';
 import { isEscapeKey } from './util.js';
 import { sendData } from './api.js';
 import { renderFailMessage, renderSuccessMessage } from './send-msg.js';
+import { URLS } from './constants.js';
 
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const ERROR_MESSAGE = 'Неверный хэштег';
 const HASHTAG_AMOUNT = 5;
-const GET_URL = 'https://28.javascript.pages.academy/kekstagram';
 
 const formImgUpload = document.querySelector('.img-upload__form');
 const uploadControl = document.querySelector('.img-upload__start');
@@ -100,7 +100,7 @@ uploadFormClose.addEventListener('keydown', onCloseButtonKeydown);
 const onFormSubmit = (evt) => {
   evt.preventDefault();
   if (pristine.validate()) {
-    sendData(GET_URL, onSendSuccess, onSendFail, new FormData(evt.target));
+    sendData(URLS.post, onSendSuccess, onSendFail, new FormData(evt.target));
   }
 };
 
