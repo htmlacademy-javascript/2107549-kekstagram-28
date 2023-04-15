@@ -1,37 +1,38 @@
 import { isEscapeKey } from './util.js';
 
-const onEscKeyDown = (evt, element, cb) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    if (element) {
-      cb(element);
-    }
+const closeMessage = (type, cbKeyDown) => {
+  const messageElements = document.querySelectorAll(`.${type}`);
+
+  messageElements.forEach((element) => {
+    element.remove();
+    element = '';
+  });
+
+  if (cbKeyDown) {
+    document.removeEventListener('keydown', cbKeyDown);
   }
 };
 
-const closeMessage = (element) => {
-  element.remove();
-  document.removeEventListener('keydown', onEscKeyDown);
-  element = '';
+const onEscKeyDown = (event, type) => {
+  event.preventDefault();
+  if (isEscapeKey(event)) {
+    closeMessage(type, onEscKeyDown);
+  }
 };
 
-const onMessageButtonClick = (evt, element) => {
-  evt.preventDefault();
-  closeMessage(element);
+const onMessageButtonClick = (event, type) => {
+  event.preventDefault();
+  closeMessage(type, onEscKeyDown);
 };
 
-const renderFailMessage = (element) => {
-  const failMessageClone = element.cloneNode(true);
-  document.body.append(failMessageClone);
-  document.addEventListener('keydown', (e) => onEscKeyDown(e, failMessageClone, closeMessage));
-  failMessageClone.querySelector('.error__button').addEventListener('click', (e) => onMessageButtonClick(e, failMessageClone));
+const renderMessage = (type) => {
+  const messageTemplate = document.querySelector(`#${type}`).content.querySelector(`.${type}`);
+  const messageButtonElement = messageTemplate.querySelector(`.${type}__button`);
+
+  document.body.append(messageTemplate);
+
+  messageButtonElement.addEventListener('click', (event) => onMessageButtonClick(event, type));
+  document.addEventListener('keydown', (event) => onEscKeyDown(event, type));
 };
 
-const renderSuccessMessage = (element) => {
-  const successMessageClone = element.cloneNode(true);
-  document.body.append(successMessageClone);
-  document.addEventListener('keydown', (e) => onEscKeyDown(e, successMessageClone, closeMessage));
-  successMessageClone.querySelector('.success__button').addEventListener('click', (e) => onMessageButtonClick(e, successMessageClone));
-};
-
-export { renderFailMessage, renderSuccessMessage };
+export { renderMessage };

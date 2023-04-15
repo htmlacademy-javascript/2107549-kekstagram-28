@@ -2,7 +2,7 @@ import { resetScale } from './scale.js';
 import { resetEffects } from './effects.js';
 import { isEscapeKey } from './util.js';
 import { sendData } from './api.js';
-import { renderFailMessage, renderSuccessMessage } from './send-msg.js';
+import { renderMessage } from './send-msg.js';
 import { URLS } from './constants.js';
 
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
@@ -17,14 +17,12 @@ const fieldHashtag = uploadPicture.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 
 const onSendSuccess = () => {
-  const successMessageElement = document.querySelector('#success').content.querySelector('.success');
-  renderSuccessMessage(successMessageElement);
+  renderMessage('success');
   closeModal();
 };
 
 const onSendFail = () => {
-  const failureMessageElement = document.querySelector('#error').content.querySelector('.error');
-  renderFailMessage(failureMessageElement);
+  renderMessage('error');
 };
 
 const pristine = new Pristine(formImgUpload, {
