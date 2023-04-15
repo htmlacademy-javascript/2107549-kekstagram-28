@@ -1,55 +1,37 @@
 import { isEscapeKey } from './util.js';
 
-const failMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-let failMessageClone;
-let successMessageClone;
-
-const closeFailMessage = () => {
-  failMessageClone.remove();
-  document.removeEventListener('keydown', onDocumentKeydown);
-  failMessageClone = '';
-};
-
-const closeSuccessMessage = () => {
-  successMessageClone.remove();
-  document.removeEventListener('keydown', onDocumentKeydown);
-  successMessageClone = '';
-};
-
-const onFailMessageButtonClick = (evt) => {
-  evt.preventDefault();
-  closeFailMessage();
-};
-
-const onSuccessMessageButtonClick = (evt) => {
-  evt.preventDefault();
-  closeSuccessMessage();
-};
-
-const renderFailMessage = () => {
-  failMessageClone = failMessageTemplate.cloneNode(true);
-  document.body.append(failMessageClone);
-  document.addEventListener('keydown', onDocumentKeydown);
-  failMessageClone.querySelector('.error__button').addEventListener('click', onFailMessageButtonClick);
-};
-
-const renderSuccessMessage = () => {
-  successMessageClone = successMessageTemplate.cloneNode(true);
-  document.body.append(successMessageClone);
-  document.addEventListener('keydown', onDocumentKeydown);
-  successMessageClone.querySelector('.success__button').addEventListener('click', onSuccessMessageButtonClick);
-};
-
-function onDocumentKeydown(evt) {
+const onEscKeyDown = (evt, element, cb) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    if (failMessageClone) {
-      closeFailMessage();
-      return;
+    if (element) {
+      cb(element);
     }
-    closeSuccessMessage();
   }
-}
+};
+
+const closeMessage = (element) => {
+  element.remove();
+  document.removeEventListener('keydown', onEscKeyDown);
+  element = '';
+};
+
+const onMessageButtonClick = (evt, element) => {
+  evt.preventDefault();
+  closeMessage(element);
+};
+
+const renderFailMessage = (element) => {
+  const failMessageClone = element.cloneNode(true);
+  document.body.append(failMessageClone);
+  document.addEventListener('keydown', (e) => onEscKeyDown(e, failMessageClone, closeMessage));
+  failMessageClone.querySelector('.error__button').addEventListener('click', (e) => onMessageButtonClick(e, failMessageClone));
+};
+
+const renderSuccessMessage = (element) => {
+  const successMessageClone = element.cloneNode(true);
+  document.body.append(successMessageClone);
+  document.addEventListener('keydown', (e) => onEscKeyDown(e, successMessageClone, closeMessage));
+  successMessageClone.querySelector('.success__button').addEventListener('click', (e) => onMessageButtonClick(e, successMessageClone));
+};
 
 export { renderFailMessage, renderSuccessMessage };

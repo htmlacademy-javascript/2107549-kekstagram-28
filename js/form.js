@@ -17,12 +17,14 @@ const fieldHashtag = uploadPicture.querySelector('.text__hashtags');
 const commentField = document.querySelector('.text__description');
 
 const onSendSuccess = () => {
-  renderSuccessMessage();
+  const successMessageElement = document.querySelector('#success').content.querySelector('.success');
+  renderSuccessMessage(successMessageElement);
   closeModal();
 };
 
 const onSendFail = () => {
-  renderFailMessage();
+  const failureMessageElement = document.querySelector('#error').content.querySelector('.error');
+  renderFailMessage(failureMessageElement);
 };
 
 const pristine = new Pristine(formImgUpload, {
