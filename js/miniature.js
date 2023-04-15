@@ -1,23 +1,33 @@
 import { openBigPhoto } from './gallery.js';
+import { getData } from './api.js';
+import { getFail } from './get-messages.js';
+
+const GET_URL = 'https://28.javascript.pages.academy/kekstagram/data';
 
 const photosContainer = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const renderMiniature = (({ url, description, likes, comments }) => {
+const createMiniature = (data) => {
   const miniature = photoTemplate.cloneNode(true);
-  miniature.querySelector('.picture__img').src = url;
-  miniature.querySelector('.picture__img').alt = description;
-  miniature.querySelector('.picture__likes').textContent = likes;
-  miniature.querySelector('.picture__comments').textContent = comments.length;
+  miniature.querySelector('.picture__img').src = data.url;
+  miniature.querySelector('.picture__img').alt = data.description;
+  miniature.querySelector('.picture__comments').textContent = data.comments.length;
+  miniature.querySelector('.picture__likes').textContent = data.likes;
 
-  miniature.addEventListener('click', () => openBigPhoto(url, description, likes, comments));
+  miniature.addEventListener('click', (event) => {
+    event.preventDefault();
+    openBigPhoto(data);
+  });
 
   return miniature;
-});
-
-const createMiniaturesList = (miniatures) => {
-  photosContainer.querySelectorAll('.picture').forEach((miniature) => miniature.remove());
-  photosContainer.append(...miniatures.map(renderMiniature));
 };
 
-export { createMiniaturesList };
+const renderMiniatures = (data) => {
+  data.forEach((item) => photosContainer.append(createMiniature(item)));
+};
+
+const onGetSuccess = (data) => renderMiniatures(data);
+
+const getPicrutesData = () => getData(GET_URL, onGetSuccess, getFail);
+
+export { getPicrutesData };
