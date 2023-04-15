@@ -87,7 +87,7 @@ const initCommentsLoader = (comments) => {
 
 const clearComments = () => (commentsContainer.innerHTML = '');
 
-const openBigPhoto = (url, description, likes, comments) => {
+const openBigPhoto = ({ url, description, likes, comments }) => {
   bigPictureImage.src = url;
   bigPictureImage.alt = description;
   likesCount.textContent = likes;

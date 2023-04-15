@@ -1,6 +1,6 @@
 import { openBigPhoto } from './gallery.js';
 import { getData } from './api.js';
-import { getFail } from './get-messages.js';
+import { getFail } from './get-msg.js';
 
 const GET_URL = 'https://28.javascript.pages.academy/kekstagram/data';
 
@@ -16,7 +16,12 @@ const createMiniature = (data) => {
 
   miniature.addEventListener('click', (event) => {
     event.preventDefault();
-    openBigPhoto(data);
+    openBigPhoto({
+      comments: data.comments,
+      description: data.description,
+      url: data.url,
+      likes: data.likes
+    });
   });
 
   return miniature;
@@ -28,6 +33,6 @@ const renderMiniatures = (data) => {
 
 const onGetSuccess = (data) => renderMiniatures(data);
 
-const getPicrutesData = () => getData(GET_URL, onGetSuccess, getFail);
+const getPicturesData = () => getData(GET_URL, onGetSuccess, getFail);
 
-export { getPicrutesData };
+export { getPicturesData };

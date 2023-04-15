@@ -1,5 +1,5 @@
 import { addFormAction } from './form.js';
-import { getPicrutesData } from './miniature.js';
+import { getPicturesData } from './miniature.js';
 
-getPicrutesData();
+getPicturesData();
 addFormAction();
