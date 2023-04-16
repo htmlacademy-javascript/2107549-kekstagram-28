@@ -1,9 +1,8 @@
-import { picturePreview } from './effects.js';
-
 const SCALE = { MIN: 25, MAX: 100 };
 const SCALE_DEFAULT = 100;
 const SCALE_STEP = 25;
 
+const picturePreview = document.querySelector('.img-upload__preview img');
 const smallerControl = document.querySelector('.scale__control--smaller');
 const biggerControl = document.querySelector('.scale__control--bigger');
 const scaleControl = document.querySelector('.scale__control--value');
