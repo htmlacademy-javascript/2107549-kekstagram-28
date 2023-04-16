@@ -1,3 +1,8 @@
+const TIMEOUT_ERROR = 5000;
+
+export const isEscapeKey = (evt) => evt.key === 'Escape';
+export const isAcceptKey = (evt) => evt.key === 'Enter' || evt.key === 'Space';
+
 export const makeSequence = (step) => {
   let index = 0;
   return () => {
@@ -24,8 +29,27 @@ export const getUniqueRandomInteger = (min, max) => {
   };
 };
 
-export const isEscapeKey = (evt) => evt.key === 'Escape';
-export const isAcceptKey = (evt) => evt.key === 'Enter' || evt.key === 'Space';
+export const connectionErrorMessage = 'Произошла ошибка.';
+
+export const getFail = (message) => {
+  const errorBlock = document.createElement('div');
+  errorBlock.style.position = 'fixed';
+  errorBlock.style.top = '0';
+  errorBlock.style.left = '0';
+  errorBlock.style.width = '100%';
+  errorBlock.style.height = '60px';
+  errorBlock.style.color = 'white';
+  errorBlock.style.textAlign = 'center';
+  errorBlock.style.padding = '20px';
+  errorBlock.style.backgroundColor = '#ff4c4c';
+  errorBlock.textContent = message;
+
+  document.body.append(errorBlock);
+
+  setTimeout(() => {
+    errorBlock.remove();
+  }, TIMEOUT_ERROR);
+};
 
 export const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;

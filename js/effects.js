@@ -90,8 +90,8 @@ const onEffectsChange = (evt) => {
   if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
-  chosenEffect = FX[evt.target.value];
-  picturePreview.class = `effects__preview--${chosenEffect.name}`;
+  chosenEffect = FX.find((effect) => effect.name === evt.target.value);
+  picturePreview.className = `effects__preview--${chosenEffect.name}`;
   updSlider();
 };
 
@@ -122,4 +122,4 @@ closeSlider();
 effectElement.addEventListener('change', onEffectsChange);
 sliderElement.noUiSlider.on('update', onSliderUpdate);
 
-export { resetEffects, picturePreview };
+export { resetEffects };

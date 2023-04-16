@@ -1,34 +1,23 @@
-import { getFail } from './get-msg.js';
+import { getFail } from './util.js';
 import { URLS } from './constants.js';
 import { renderMiniatures } from './miniature.js';
 
-const getData = (url, onSuccess, onFail) => {
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      onSuccess(data);
-    })
-    .catch((err) => {
-      onFail(err);
-    });
-};
+const getData = () => fetch(URLS.get)
+  .then((Response) => {
+    if (Response.ok) {
+      return Response.json();
+    }
 
-const sendData = (url, onSuccess, onFail, body) => {
-  fetch(url, {
+    throw new Error(`${Response.status} ${Response.statusText}`);
+  });
+
+const sendData = (body) => fetch(
+  URLS.post,
+  {
     method: 'POST',
     body,
-  })
-    .then((response) => {
-      if (response.ok) {
-        onSuccess();
-      } else {
-        onFail();
-      }
-    })
-    .catch(() => {
-      onFail();
-    });
-};
+  },
+);
 
 const onGetSuccess = (data) => renderMiniatures(data);
 const getPicturesData = () => getData(URLS.get, onGetSuccess, getFail);
