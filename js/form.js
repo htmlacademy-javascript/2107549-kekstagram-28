@@ -49,7 +49,7 @@ pristine.addValidator(
 
 const openModal = () => {
   uploadPicture.classList.remove('hidden');
-  document.querySelector('body').classList.add('modal-open');
+  document.body.classList.add('modal-open');
 };
 
 uploadControl.addEventListener('change', () => {
@@ -132,16 +132,12 @@ const onFormSubmit = (onSuccess) => {
           } else {
             showMessage(sendError);
             unblockUploadSubmit();
-            openModal();
           }
         })
         .catch(() => {
           unblockUploadSubmit();
-          openModal();
           showMessage(sendError);
         });
-    } else {
-      openModal();
     }
   });
 };

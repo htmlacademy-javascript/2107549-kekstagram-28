@@ -1,8 +1,6 @@
-import { getFail } from './util.js';
 import { URLS } from './constants.js';
-import { renderMiniatures } from './miniature.js';
 
-const getData = () => fetch(URLS.get)
+const getData = (url) => fetch(url)
   .then((Response) => {
     if (!Response.ok) {
       throw new Error(`${Response.status} ${Response.statusText}`);
@@ -19,7 +17,5 @@ const sendData = (body) => fetch(
   },
 );
 
-const onGetSuccess = (data) => renderMiniatures(data);
-const getPicturesData = () => getData(URLS.get, onGetSuccess, getFail);
 
-export { getData, sendData, getPicturesData };
+export { getData, sendData };
