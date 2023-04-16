@@ -26,3 +26,12 @@ export const getUniqueRandomInteger = (min, max) => {
 
 export const isEscapeKey = (evt) => evt.key === 'Escape';
 export const isAcceptKey = (evt) => evt.key === 'Enter' || evt.key === 'Space';
+
+export const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
