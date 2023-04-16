@@ -90,8 +90,8 @@ const onEffectsChange = (evt) => {
   if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
-  chosenEffect = FX.find(({ name }) => name === evt.target.value);
-  picturePreview.className = `effects__preview--${chosenEffect.name}`;
+  chosenEffect = FX[evt.target.value];
+  picturePreview.class = `effects__preview--${chosenEffect.name}`;
   updSlider();
 };
 
