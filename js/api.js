@@ -1,3 +1,7 @@
+import { getFail } from './get-msg.js';
+import { URLS } from './constants.js';
+import { renderMiniatures } from './miniature.js';
+
 const getData = (url, onSuccess, onFail) => {
   fetch(url)
     .then((response) => response.json())
@@ -26,4 +30,7 @@ const sendData = (url, onSuccess, onFail, body) => {
     });
 };
 
-export { getData, sendData };
+const onGetSuccess = (data) => renderMiniatures(data);
+const getPicturesData = () => getData(URLS.get, onGetSuccess, getFail);
+
+export { getData, sendData, getPicturesData };

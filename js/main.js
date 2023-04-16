@@ -1,5 +1,5 @@
 import { addFormAction } from './form.js';
-import { getPicturesData } from './get-pictures-data.js';
+import { getPicturesData } from './api.js';
 
 getPicturesData();
 addFormAction();
