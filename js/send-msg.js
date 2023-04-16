@@ -34,4 +34,4 @@ const renderSuccessMessage = (element) => {
   successMessageClone.querySelector('.success__button').addEventListener('click', (e) => onMessageButtonClick(e, successMessageClone));
 };
 
-export { renderFailMessage, renderSuccessMessage };
+export { renderSuccessMessage, renderFailMessage };
