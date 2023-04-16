@@ -16,7 +16,6 @@ const commentField = document.querySelector('.text__description');
 const uploadSubmit = uploadPicture.querySelector('.img-upload__submit');
 const sendSuccess = document.querySelector('#success').content.querySelector('.success');
 const sendError = document.querySelector('#error').content.querySelector('.error');
-const sendLoading = document.querySelector('#messages').content.querySelector('.img-upload__message--loading');
 
 const pristine = new Pristine(formImgUpload, {
   classTo: 'img-upload__field-wrapper',
@@ -108,7 +107,6 @@ uploadPicture.addEventListener('keydown', (evt) => {
 const blockUploadSubmit = () => {
   uploadSubmit.disabled = true;
   uploadSubmit.style.opacity = 0.2;
-  showMessage(sendLoading);
 };
 
 const unblockUploadSubmit = () => {
