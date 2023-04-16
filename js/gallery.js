@@ -79,7 +79,6 @@ const initCommentsLoader = (comments) => {
 };
 
 const openBigPhoto = ({ url, description, likes, comments }) => {
-  console.log(url)
   bigPictureImage.src = url;
   bigPictureImage.alt = description;
   likesCount.textContent = likes;
