@@ -4,11 +4,11 @@ import { renderMiniatures } from './miniature.js';
 
 const getData = () => fetch(URLS.get)
   .then((Response) => {
-    if (Response.ok) {
-      return Response.json();
+    if (!Response.ok) {
+      throw new Error(`${Response.status} ${Response.statusText}`);
     }
 
-    throw new Error(`${Response.status} ${Response.statusText}`);
+    return Response.json();
   });
 
 const sendData = (body) => fetch(
