@@ -67,7 +67,7 @@ const closeSlider = () => {
   sliderContainerElement.classList.add('hidden');
 };
 
-const updSlider = () => {
+const updateSlider = () => {
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: chosenEffect.min,
@@ -92,7 +92,7 @@ const onEffectsChange = (evt) => {
   }
   chosenEffect = FX.find((effect) => effect.name === evt.target.value);
   picturePreview.className = `effects__preview--${chosenEffect.name}`;
-  updSlider();
+  updateSlider();
 };
 
 const onSliderUpdate = () => {
@@ -105,7 +105,7 @@ const onSliderUpdate = () => {
 
 const resetEffects = () => {
   chosenEffect = DEFAULT_FX;
-  updSlider();
+  updateSlider();
 };
 
 noUiSlider.create(sliderElement, {
