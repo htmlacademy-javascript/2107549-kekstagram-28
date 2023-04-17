@@ -7,17 +7,17 @@ const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 const ERROR_MESSAGE = 'Неверный хэштег';
 const HASHTAG_AMOUNT = 5;
 
-const formImgUpload = document.querySelector('.img-upload__form');
-const uploadControl = document.querySelector('.img-upload__start');
-const uploadPicture = document.querySelector('.img-upload__overlay');
-const uploadFormClose = document.querySelector('.img-upload__cancel');
-const fieldHashtag = uploadPicture.querySelector('.text__hashtags');
-const commentField = document.querySelector('.text__description');
-const uploadSubmit = uploadPicture.querySelector('.img-upload__submit');
-const sendSuccess = document.querySelector('#success').content.querySelector('.success');
-const sendError = document.querySelector('#error').content.querySelector('.error');
+const formImgUploadElement = document.querySelector('.img-upload__form');
+const uploadControlElement = document.querySelector('.img-upload__start');
+const uploadPictureElement = document.querySelector('.img-upload__overlay');
+const uploadFormCloseElement = document.querySelector('.img-upload__cancel');
+const fieldHashtagElement = document.querySelector('.text__hashtags');
+const commentFieldElement = document.querySelector('.text__description');
+const uploadSubmitElement = uploadPictureElement.querySelector('.img-upload__submit');
+const sendSuccessElement = document.querySelector('#success').content.querySelector('.success');
+const sendErrorElement = document.querySelector('#error').content.querySelector('.error');
 
-const pristine = new Pristine(formImgUpload, {
+const pristine = new Pristine(formImgUploadElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__field-wrapper__error',
@@ -41,41 +41,37 @@ const validateTags = (value) => {
 };
 
 pristine.addValidator(
-  fieldHashtag,
+  fieldHashtagElement,
   validateTags,
   ERROR_MESSAGE
 );
 
 const openModal = () => {
-  uploadPicture.classList.remove('hidden');
+  uploadPictureElement.classList.remove('hidden');
   document.body.classList.add('modal-open');
 };
 
-uploadControl.addEventListener('change', () => {
+uploadControlElement.addEventListener('change', () => {
   openModal();
 });
 
 const closeModal = () => {
-  uploadPicture.classList.add('hidden');
+  uploadPictureElement.classList.add('hidden');
   document.body.classList.remove('modal-open');
   resetScale();
   resetEffects();
   pristine.reset();
-  formImgUpload.reset();
+  formImgUploadElement.reset();
 };
 
-uploadFormClose.addEventListener('click', () => {
+uploadFormCloseElement.addEventListener('click', () => {
   closeModal();
 });
 
-const isTextFieldFocused = () =>
-  document.activeElement === fieldHashtag ||
-  document.activeElement === commentField;
-
 const showMessage = (message) => {
   const messageElement = message.cloneNode(true);
-  document.body.appendChild(messageElement);
   messageElement.classList.add('message');
+  document.body.appendChild(messageElement);
   window.addEventListener('click', (evt) => {
     if (evt.target.matches('.message')) {
       document.body.querySelectorAll('.message').forEach((element) => element.remove());
@@ -89,33 +85,28 @@ const showMessage = (message) => {
   }
 };
 
+const isTextFieldFocused = () => document.activeElement === fieldHashtagElement || document.activeElement === commentFieldElement;
+
 document.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && !isTextFieldFocused()) {
     evt.preventDefault();
     closeModal();
     document.body.querySelectorAll('.message').forEach((element) => element.remove());
   }
 });
 
-uploadPicture.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt) && !isTextFieldFocused()) {
-    evt.preventDefault();
-    closeModal();
-  }
-});
-
 const blockUploadSubmit = () => {
-  uploadSubmit.disabled = true;
-  uploadSubmit.style.opacity = 0.2;
+  uploadSubmitElement.disabled = true;
+  uploadSubmitElement.style.opacity = 0.2;
 };
 
 const unblockUploadSubmit = () => {
-  uploadSubmit.disabled = false;
-  uploadSubmit.style.opacity = 1;
+  uploadSubmitElement.disabled = false;
+  uploadSubmitElement.style.opacity = 1;
 };
 
 const onFormSubmit = (onSuccess) => {
-  formImgUpload.addEventListener('submit', (evt) => {
+  formImgUploadElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
@@ -126,15 +117,15 @@ const onFormSubmit = (onSuccess) => {
             onSuccess();
             closeModal();
             unblockUploadSubmit();
-            showMessage(sendSuccess);
+            showMessage(sendSuccessElement);
           } else {
-            showMessage(sendError);
+            showMessage(sendErrorElement);
             unblockUploadSubmit();
           }
         })
         .catch(() => {
           unblockUploadSubmit();
-          showMessage(sendError);
+          showMessage(sendErrorElement);
         });
     }
   });

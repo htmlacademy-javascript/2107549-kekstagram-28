@@ -1,12 +1,14 @@
 import { openBigPhoto } from './gallery.js';
 
-const photosContainer = document.querySelector('.pictures');
-const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const photosContainerElement = document.querySelector('.pictures');
+const photoTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
 
 const createMiniature = (data) => {
-  const miniature = photoTemplate.cloneNode(true);
-  miniature.querySelector('.picture__img').src = data.url;
-  miniature.querySelector('.picture__img').alt = data.description;
+  const miniature = photoTemplateElement.cloneNode(true);
+  const pictureImgElement = miniature.querySelector('.picture__img');
+
+  pictureImgElement.src = data.url;
+  pictureImgElement.alt = data.description;
   miniature.querySelector('.picture__comments').textContent = data.comments.length;
   miniature.querySelector('.picture__likes').textContent = data.likes;
 
@@ -24,7 +26,8 @@ const createMiniature = (data) => {
 };
 
 const renderMiniatures = (data) => {
-  data.forEach((item) => photosContainer.append(createMiniature(item)));
+  document.body.querySelectorAll('.picture').forEach((element) => element.remove());
+  data.forEach((item) => photosContainerElement.append(createMiniature(item)));
 };
 
 export { renderMiniatures };
