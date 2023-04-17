@@ -11,7 +11,7 @@ const formImgUploadElement = document.querySelector('.img-upload__form');
 const uploadControlElement = document.querySelector('.img-upload__start');
 const uploadPictureElement = document.querySelector('.img-upload__overlay');
 const uploadFormCloseElement = document.querySelector('.img-upload__cancel');
-const fieldHashtagElement = uploadPictureElement.querySelector('.text__hashtags');
+const fieldHashtagElement = document.querySelector('.text__hashtags');
 const commentFieldElement = document.querySelector('.text__description');
 const uploadSubmitElement = uploadPictureElement.querySelector('.img-upload__submit');
 const sendSuccessElement = document.querySelector('#success').content.querySelector('.success');
@@ -68,10 +68,6 @@ uploadFormCloseElement.addEventListener('click', () => {
   closeModal();
 });
 
-const isTextFieldFocused = () =>
-  document.activeElement === fieldHashtagElement ||
-  document.activeElement === commentFieldElement;
-
 const showMessage = (message) => {
   const messageElement = message.cloneNode(true);
   document.body.appendChild(messageElement);
@@ -89,18 +85,13 @@ const showMessage = (message) => {
   }
 };
 
-document.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeModal();
-    document.body.querySelectorAll('.message').forEach((element) => element.remove());
-  }
-});
+const isTextFieldFocused = () => document.activeElement === fieldHashtagElement || document.activeElement === commentFieldElement;
 
-uploadPictureElement.addEventListener('keydown', (evt) => {
+document.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt) && !isTextFieldFocused()) {
     evt.preventDefault();
     closeModal();
+    document.body.querySelectorAll('.message').forEach((element) => element.remove());
   }
 });
 
