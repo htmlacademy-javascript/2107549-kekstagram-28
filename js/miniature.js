@@ -26,6 +26,7 @@ const createMiniature = (data) => {
 };
 
 const renderMiniatures = (data) => {
+  document.body.querySelectorAll('.picture').forEach((element) => element.remove());
   data.forEach((item) => photosContainerElement.append(createMiniature(item)));
 };
 
