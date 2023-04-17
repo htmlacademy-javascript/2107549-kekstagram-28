@@ -5,8 +5,10 @@ const photoTemplateElement = document.querySelector('#picture').content.querySel
 
 const createMiniature = (data) => {
   const miniature = photoTemplateElement.cloneNode(true);
-  miniature.querySelector('.picture__img').src = data.url;
-  miniature.querySelector('.picture__img').alt = data.description;
+  const pictureImgElement = miniature.querySelector('.picture__img');
+
+  pictureImgElement.src = data.url;
+  pictureImgElement.alt = data.description;
   miniature.querySelector('.picture__comments').textContent = data.comments.length;
   miniature.querySelector('.picture__likes').textContent = data.likes;
 
