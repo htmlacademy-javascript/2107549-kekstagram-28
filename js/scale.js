@@ -1,38 +1,38 @@
-const SCALE = { MIN: 25, MAX: 100 };
+const SCALE = { min: 25, max: 100 };
 const SCALE_DEFAULT = 100;
 const SCALE_STEP = 25;
 
-const picturePreview = document.querySelector('.img-upload__preview img');
-const smallerControl = document.querySelector('.scale__control--smaller');
-const biggerControl = document.querySelector('.scale__control--bigger');
-const scaleControl = document.querySelector('.scale__control--value');
+const picturePreviewElement = document.querySelector('.img-upload__preview img');
+const smallerControlElement = document.querySelector('.scale__control--smaller');
+const biggerControlElement = document.querySelector('.scale__control--bigger');
+const scaleControlElement = document.querySelector('.scale__control--value');
 
 const scaleImage = (value) => {
-  picturePreview.style.transform = `scale(${value / 100})`;
-  scaleControl.value = `${value}%`;
+  picturePreviewElement.style.transform = `scale(${value / 100})`;
+  scaleControlElement.value = `${value}%`;
 };
 
 const onSmallerButtonClick = () => {
-  const currentValue = parseInt(scaleControl.value, 10);
+  const currentValue = parseInt(scaleControlElement.value, 10);
   let newValue = currentValue - SCALE_STEP;
-  if (newValue < SCALE.MIN) {
-    newValue = SCALE.MIN;
+  if (newValue < SCALE.min) {
+    newValue = SCALE.min;
   }
   scaleImage(newValue);
 };
 
 const onBiggerButtonClick = () => {
-  const currentValue = parseInt(scaleControl.value, 10);
+  const currentValue = parseInt(scaleControlElement.value, 10);
   let newValue = currentValue + SCALE_STEP;
-  if (newValue > SCALE.MAX) {
-    newValue = SCALE.MAX;
+  if (newValue > SCALE.max) {
+    newValue = SCALE.max;
   }
   scaleImage(newValue);
 };
 
 const resetScale = () => scaleImage(SCALE_DEFAULT);
 
-smallerControl.addEventListener('click', onSmallerButtonClick);
-biggerControl.addEventListener('click', onBiggerButtonClick);
+smallerControlElement.addEventListener('click', onSmallerButtonClick);
+biggerControlElement.addEventListener('click', onBiggerButtonClick);
 
 export { resetScale };

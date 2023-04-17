@@ -51,7 +51,7 @@ const FX = [
 const DEFAULT_FX = FX[0];
 let chosenEffect = DEFAULT_FX;
 
-const picturePreview = document.querySelector('.img-upload__preview img');
+const picturePreviewElement = document.querySelector('.img-upload__preview img');
 const effectElement = document.querySelector('.effects');
 const sliderElement = document.querySelector('.effect-level__slider');
 const sliderContainerElement = document.querySelector('.img-upload__effect-level');
@@ -91,13 +91,13 @@ const onEffectsChange = (evt) => {
     return;
   }
   chosenEffect = FX.find((effect) => effect.name === evt.target.value);
-  picturePreview.className = `effects__preview--${chosenEffect.name}`;
+  picturePreviewElement.className = `effects__preview--${chosenEffect.name}`;
   updateSlider();
 };
 
 const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
-  picturePreview.style.filter = isDefault()
+  picturePreviewElement.style.filter = isDefault()
     ? DEFAULT_FX.style
     : `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
   effectLevelElement.value = sliderValue;
