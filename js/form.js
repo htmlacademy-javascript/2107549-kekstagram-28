@@ -70,8 +70,8 @@ uploadFormCloseElement.addEventListener('click', () => {
 
 const showMessage = (message) => {
   const messageElement = message.cloneNode(true);
-  document.body.appendChild(messageElement);
   messageElement.classList.add('message');
+  document.body.appendChild(messageElement);
   window.addEventListener('click', (evt) => {
     if (evt.target.matches('.message')) {
       document.body.querySelectorAll('.message').forEach((element) => element.remove());
